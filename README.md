@@ -1,31 +1,30 @@
 # Fast Tokeizers
------------------
 Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with Pycuda. The rules are producing Penn Treebank style tokenization of English text and following the rules similar to nltk's TreebankWordTokenizer(http://www.nltk.org/_modules/nltk/tokenize/treebank.html). The fastest tokenizer can be up to 20X speedup comparing to nltk's TreebankWordTokenizer.
 
-
+---
 1. Application Overview
------------------------
 GpuTokenize.cu and GpuTokenize.h
+
 		C++ and Cuda application
 		provides splitAndSaveToFile() or split() to tokenize a large input string into tokens.
 
 CpuTokenize.cpp and CpuTokenize.h
+
 		C++ application	
 		provides splitAndSaveToFile_cpu() or split_cpu() to tokenize a large input string into tokens.
 
-	Onescan.py
+Onescan.py
 
-		python application
-	
+		python application	
 		implements the PTB rules to tokenize a large string during one scan.
 
-	GpuTokenize.py
+GpuTokenize.py
+
 		python and pycuda application
 		uses Pycuda to tokenize a large input string into tokens.
 
-
+---
 2. Providing Folder and Files
------------------
 Files: test.sh, Myplot.py, Compare2PTB.py and README.md
 
 Folder 'cpp'
