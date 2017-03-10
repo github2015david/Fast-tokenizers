@@ -2,7 +2,7 @@
 import sys
 import matplotlib.pyplot as plt
 
-with open("logfile1.txt", 'r') as f:
+with open("logfile.txt", 'r') as f:
 	data = f.read()
 f.closed
 lst1 = data.split('\n')
@@ -48,45 +48,3 @@ plt.legend( loc='upper left', numpoints = 1 )
 plt.figure(1)
 
 plt.show()
-
-"""
-ys_g1 = [[1,2,3,4,5,6,7,8,9],[2,3,4,5,6,7,8,9,10],[3,4,5,6,7,8,9,10,11]]
-for ys in ys_g1:
-	print len(ys),ys
-
-# Plot error over iterations
-plt.figure()
-
-for i, ys in enumerate(ys_g1):
-	plt.plot(ys, label = my_labels[i])
-
-plt.ylabel('Negative log likelihood')
-plt.title('Training logistic regression')
-plt.xlabel('Epoch')
-plt.ylim(0.,20.)
-plt.legend( loc='upper right', numpoints = 1 )
-plt.figure(1)
-
-
-ys_g = [[1,2,3,4],[2,3,4,5],[3,4,5,6]]
-xs = [1,10,100,1000]
-for ys in ys_g:
-	print len(ys),ys	
-
-# Plot error over iterations
-plt.figure()
-
-
-for i, ys in enumerate(ys_g):
-	plt.semilogx(xs, ys, label = my_labels[i])
-
-plt.ylabel('Negative log likelihood')
-plt.title('Training logistic regression')
-plt.xlabel('Epoch')
-plt.ylim(0.,20.)
-plt.legend( loc='upper right', numpoints = 1 )
-plt.figure(2)
-
-plt.show()
-
-"""
