@@ -23,8 +23,10 @@ GpuTokenize.py
 ### 2. Folder and Files
 Current folder:
   * test.sh, Myplot.py, Compare2PTB.py and README.md
+  
 Folder 'cpp':
   * GpuTokenize.cu, GpuTokenize.h, CpuTokenize.cpp, CpuTokenize.h, Tok.cpp, Tok.h, Main.cpp and Makefile
+  
 Folder 'py':
   * GpuTokenize.py, Onescan.py and runtok.py
 
@@ -35,19 +37,19 @@ dataset 2: http://cmpt732.csil.sfu.ca/datasets/a1-pagecounts-2.zip
 
 -
 ### 4. Running the Application
-Assuming Cuda and Pycuda are installed.
+Assuming Cuda and Pycuda are installed.  
 1) running C++:
    cd /path_to_cpp/cpp
    make
    ./tok <data_path> <optional: 1 for gpu, 2 for cpu>
+   
 2) running Python:
    cd /path_to_cpp/cpp
    python runtok.py <data_path> <optional: 1 for GpuTokenizer.gpuTokenize(), 2 for OneScan.oneScanTokenizer()>
 
 3) running test.sh:
-
-	Adjust the data paths in test.sh and then 
-	./test.sh
+   Adjust the data paths in test.sh and then 
+   ./test.sh
 
 -
 ### 5. The basic idea for Gpu implementation
