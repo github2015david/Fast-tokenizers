@@ -37,8 +37,8 @@ test.sh
 
 -
 ### 2. The basic idea for Gpu implementation
-It takes 2 steps to tokenize. The first is patching, in which each byte is patched with left and right bytes. Allowing each GPU thread to work with one bytes, the left or right bytes of this byte is marked as "joined" or "disjoined" according to the rules.
-The final step is to remove the patched "joined" bytes and split the tokens simultaneously.
+It takes 2 steps to tokenize. The first is padding, in which each byte is padded with left and right bytes. Allowing each GPU thread to work with one bytes, the left or right bytes of this byte is marked as "joined" or "disjoined" according to the rules.
+The final step is to remove the padded "joined" bytes and split the tokens simultaneously.
  
 -
 ### 3. Accuracy
