@@ -1,5 +1,5 @@
 # Fast Tokeizers
-Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with Pycuda. The rules are producing Penn Treebank style tokenization of English text and following the rules similar to nltk's TreebankWordTokenizer(http://www.nltk.org/_modules/nltk/tokenize/treebank.html). The fastest tokenizer can be up to 29X speedup comparing to nltk's TreebankWordTokenizer.
+Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with Pycuda. The rules are producing Penn Treebank style tokenization of English text and following the rules similar to nltk's TreebankWordTokenizer(http://www.nltk.org/_modules/nltk/tokenize/treebank.html). The fastest tokenizer can be up to 28X speedup comparing to nltk's TreebankWordTokenizer.
 
 -
 ### 1. Application Overview
@@ -63,7 +63,7 @@ All results from above Python applications are matched to the result from nltk's
 
 -
 ### 7. Results
-Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x speedup while the GPU versions are 29x as shown below:
+Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x speedup while the GPU versions are 25x to 28x as shown below:
 
 ![](figure_1.png)
 
