@@ -39,9 +39,9 @@ dataset 2: http://cmpt732.csil.sfu.ca/datasets/a1-pagecounts-2.zip
 ### 4. Running the Application
 Assuming Cuda and Pycuda are installed.  
 1) running C++:
-    cd /path_to_cpp/cpp
-    make
-    ./tok <data_path> <optional: 1 for gpu, 2 for cpu>
+  * cd /path_to_cpp/cpp
+  * make
+  * ./tok <data_path> <optional: 1 for gpu, 2 for cpu>
    
 2) running Python:
    cd /path_to_cpp/cpp
