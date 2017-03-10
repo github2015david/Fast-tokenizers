@@ -5,14 +5,12 @@ Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with 
 
 1. Application Overview
 -----------------------
-	GpuTokenize.cu and GpuTokenize.h
+GpuTokenize.cu and GpuTokenize.h
 		C++ and Cuda application
 		provides splitAndSaveToFile() or split() to tokenize a large input string into tokens.
 
-	CpuTokenize.cpp and CpuTokenize.h
-
-		C++ application
-	
+CpuTokenize.cpp and CpuTokenize.h
+		C++ application	
 		provides splitAndSaveToFile_cpu() or split_cpu() to tokenize a large input string into tokens.
 
 	Onescan.py
