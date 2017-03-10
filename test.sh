@@ -2,62 +2,62 @@
 #./test.sh
 
 path=/home/lca80/Desktop/data/
-array=(${path}gutenberg/5000-8.txt ${path}100mb/pagecounts-20141201-070000 ${path}100mb ${path}300mb ${path}499mb [6]=${path}a1-pagecounts-2)
+array=(${path}gutenberg/5000-8.txt ${path}100mb/pagecounts-20141201-070000 ${path}100mb ${path}300mb ${path}499mb ${path}a1-pagecounts-2)
 
-echo "" > logfile.txt
+NUM=6
 
+NUM=`expr $NUM - 1`
 #------------nltk-------------------------------------------------
 echo ".....nltk....." >> logfile.txt
 echo
 
-for item in ${array[*]}
+for i in $(seq 0 $NUM)
 do
-	echo "time python py/runtok.py $item 3 >> logfile.txt"
-	time python gpu_py/runtok.py $item 3 >> logfile.txt
+	echo "time python src_py/runtok.py ${array[$i]} 3 >> logfile.txt"
+	time python src_py/runtok.py ${array[$i]} 3 >> logfile.txt
 done
 echo
 #------------cpp-------------------------------------------------
 echo ".....Tok.cpp(gpu)....." >> logfile.txt
 echo
 
-for item in ${array[*]}
+for i in $(seq 0 $NUM)
 do
-	echo "time ./cpp/tok $item 1 >> logfile.txt"
-	time ./gpu_cpp/tok $item 1 >> logfile.txt
+	echo "time ./src_cpp/tok ${array[$i]} 1 >> logfile.txt"
+	time ./src_cpp/tok ${array[$i]} 1 >> logfile.txt
 done
 echo
 #------------GpuTokenizer.py-------------------------------------------------
 echo ".....GpuTokenizer.py....." >> logfile.txt
 echo
 
-for item in ${array[*]}
+for i in $(seq 0 $NUM)
 do
-	echo "time python py/runtok.py $item 1 >> logfile.txt"
-	time python gpu_py/runtok.py $item 1 >> logfile.txt
+	echo "time python src_py/runtok.py ${array[$i]} 1 >> logfile.txt"
+	time python src_py/runtok.py ${array[$i]} 1 >> logfile.txt
 done
 echo
 #------------cpp-------------------------------------------------
 echo ".....Tok.cpp(cpu)....." >> logfile.txt
 echo
 
-for item in ${array[*]}
+for i in $(seq 0 $NUM)
 do
-	echo "time ./cpp/tok $item 2 >> logfile.txt"
-	time ./gpu_cpp/tok $item 2 >> logfile.txt
+	echo "time ./src_cpp/tok ${array[$i]} 2 >> logfile.txt"
+	time ./src_cpp/tok ${array[$i]} 2 >> logfile.txt
 done
 echo
 #------------OneScan.py-------------------------------------------------
 echo ".....OneScan.py....." >> logfile.txt
 echo
 
-for item in ${array[*]}
+for i in $(seq 0 $NUM)
 do
-	echo "time python py/runtok.py $item 2 >> logfile.txt"
-	time python gpu_py/runtok.py $item 2 >> logfile.txt
+	echo "time python src_py/runtok.py ${array[$i]} 2 >> logfile.txt"
+	time python src_py/runtok.py ${array[$i]} 2 >> logfile.txt
 done
 echo
 #-----------------------------------------------------------------------
 
 python Myplot.py
-
 
