@@ -50,6 +50,7 @@ Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x spe
 <center>
 ![](figure_1.png)
 </center>
+-
 As one can see, the speedup is increasing while the size of dataset getting larger until it reaches the limit of the GPU memory. 
 -
 ### 5. Folder and Files
@@ -64,7 +65,7 @@ Folder 'py':
 
 -
 ### 6. Data
-dataset 1: www.gutenberg.org/ebooks/20417 www.gutenberg.org/ebooks/5000 www.gutenberg.org/ebooks/4300
+dataset 1: www.gutenberg.org/ebooks/20417 www.gutenberg.org/ebooks/5000 www.gutenberg.org/ebooks/4300  
 dataset 2: http://cmpt732.csil.sfu.ca/datasets/a1-pagecounts-2.zip
 
 -
