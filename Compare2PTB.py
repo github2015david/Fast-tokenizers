@@ -1,10 +1,16 @@
 #!/usr/bin/python
-# python compare_py_cpp.py /home/lca80/Desktop/data/300mb 3
+# python Compare2PTB.py <data_path> <optional: 1/2/3>
+#	1: compare TreebankWordTokenizer to src_py/GpuTokenizer.py
+#	2: compare TreebankWordTokenizer to src_py/OneScan.py
+#	3: compare TreebankWordTokenizer to src_cpp/GpuTokenize.cu
+#
+# sample:
+#	python Compare2PTB.py /home/lca80/Desktop/data/300mb 3
+#
 import sys, os
 import time
-#from Onescan import oneScanTokenizer
 from nltk.tokenize import TreebankWordTokenizer 
-sys.path.append("gpu_py")
+sys.path.append("src_py")
 import GpuTokenizer
 import OneScan
 
@@ -33,9 +39,9 @@ print "files: ",fs_len
 def getCpp(fname):
 	print "\nGpuTokenizer.cpp.............."
 	t1 = time.time()
-	os.system("./gpu_cpp/tok "+fname + " output/part-00000")
+	os.system("./src_cpp/tok "+fname + " -1")
 	buf = ""
-	with open("output/part-00000", 'r') as f:
+	with open("output_cpp/part-00000", 'r') as f:
 		buf += f.read()
 	f.closed
 	lst2 = buf.replace("...", " ... ").replace("--", " -- ").split()
@@ -197,6 +203,3 @@ else:
 
 
 print ("mismatched : %d/%d"%(total_count, tokens))
-
-
-	
