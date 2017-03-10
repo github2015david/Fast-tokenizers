@@ -5,11 +5,11 @@ Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with 
 ### 1. Application Overview
 GpuTokenize.py
   * Python and Pycuda application
-  * uses Pycuda to tokenize a stream of text into tokens.
+  * uses Pycuda to split a stream of text into tokens.
 
 Onescan.py
   * Python application	
-  * implements the PTB rules to tokenize a large string during one scan.
+  * implements the PTB rules to split a large string during one scan.
 
 runtok.py
   * Python and Pycuda application
@@ -17,11 +17,11 @@ runtok.py
 
 GpuTokenize.cu and GpuTokenize.h
   * C++ and Cuda functions and its header file.
-  * provides gpuTokenizer() to tokenize a stream of text into tokens.
+  * provides gpuTokenizer() to split a stream of text into tokens.
 
 CpuTokenize.cpp and CpuTokenize.h
   * C++ and Cuda functions and its header file.	
-  * provides cpuTokenizer() to tokenize a stream of text into tokens.
+  * provides cpuTokenizer() to split a stream of text into tokens.
 
 Main.cpp, Tok.cpp and Tok.h
   * C++ and Cuda main, functions and its header file.
