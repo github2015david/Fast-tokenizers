@@ -4,11 +4,11 @@ Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with 
 -
 ### 1. Application Overview
 GpuTokenize.py
-  * python and pycuda application
+  * Python and Pycuda application
   * uses Pycuda to tokenize a large input string into tokens.
 
 Onescan.py
-  * python application	
+  * Python application	
   * implements the PTB rules to tokenize a large string during one scan.
 
 GpuTokenize.cu and GpuTokenize.h
