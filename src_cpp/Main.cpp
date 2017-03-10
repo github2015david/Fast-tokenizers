@@ -1,5 +1,5 @@
 //Main.cpp
-// ./tok /home/lca80/Desktop/data/300mb, outfile.txt
+// ./tok /home/lca80/Desktop/data/a1-pagecounts-2/pagecounts-20141201-000000 -1
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
