@@ -16,7 +16,6 @@ do
 	time python gpu_py/runtok.py $item 3 >> logfile.txt
 done
 echo
-exit
 #------------cpp-------------------------------------------------
 echo ".....Tok.cpp(gpu)....." >> logfile.txt
 echo
