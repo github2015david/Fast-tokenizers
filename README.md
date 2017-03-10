@@ -50,7 +50,6 @@ Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x spe
 <center>
 ![](figure_1.png)
 </center>
--
 As one can see, the speedup is increasing while the size of dataset getting larger until it reaches the limit of the GPU memory.
 
 -
