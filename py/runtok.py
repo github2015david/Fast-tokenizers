@@ -15,7 +15,6 @@ import numpy as np
 from nltk.tokenize import TreebankWordTokenizer
 import GpuTokenizer
 import OneScan
-import CpuTokenizer
 
 verbose = 1		# 0: no wording, 1: wording
 
@@ -46,8 +45,6 @@ def tokenize(buf):
 		tokens = TreebankWordTokenizer().tokenize(buf)
 	elif cmd == 2:
 		tokens = OneScan.oneScanTokenizer(buf)
-	elif cmd == 4:
-		tokens = Cpu.gpuTokenize(buf)
 	else:
 		tokens = GpuTokenizer.gpuTokenize(buf)
 
