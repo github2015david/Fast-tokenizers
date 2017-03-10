@@ -82,7 +82,7 @@ int main (int argc, char *argv[])
 		cmd = atoi(argv[2]);
 		if (cmd < 0) {
 			strcpy(outfile, "output_cpp/part-0000");
-			system("rm -r outputcpp; mkdir output_cpp");
+			system("rm -r output_cpp; mkdir output_cpp");
 		}
 		cmd = abs(cmd);
 	}
