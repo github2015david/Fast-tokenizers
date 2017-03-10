@@ -44,12 +44,12 @@ Assuming Cuda and Pycuda are installed.
   * ./tok <data_path> <optional: 1 for gpu, 2 for cpu>
    
 2) running Python:
-   cd /path_to_cpp/cpp
-   python runtok.py <data_path> <optional: 1 for GpuTokenizer.gpuTokenize(), 2 for OneScan.oneScanTokenizer()>
+  * cd /path_to_cpp/cpp
+  * python runtok.py <data_path> <optional: 1 for GpuTokenizer.gpuTokenize(), 2 for OneScan.oneScanTokenizer()>
 
 3) running test.sh:
-   Adjust the data paths in test.sh and then 
-   ./test.sh
+  * Adjust the data paths in test.sh and then 
+  * ./test.sh
 
 -
 ### 5. The basic idea for Gpu implementation
@@ -64,6 +64,5 @@ All results from above Python applications are matched to the result from nltk's
 ### 7. Results
 Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x speedup while the GPU versions are 29x as shown below:
 
-<p style="text-align:center">
 ![](figure_1.png)
-</p>
+
