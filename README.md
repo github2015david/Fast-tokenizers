@@ -42,11 +42,11 @@ Assuming Cuda and Pycuda are installed.
 1) running C++:
   * cd /path_to_cpp/cpp
   * make
-  * ./tok <data_path> <optional: 1 for gpu, 2 for cpu>
+  * ./tok path_to_data 
    
 2) running Python:
   * cd /path_to_cpp/cpp
-  * python runtok.py <data_path> <optional: 1 for GpuTokenizer.gpuTokenize(), 2 for OneScan.oneScanTokenizer()>
+  * python runtok.py path_to_data
 
 3) running test.sh:
   * Adjust the data paths in test.sh and then 
