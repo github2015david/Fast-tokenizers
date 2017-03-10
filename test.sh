@@ -12,7 +12,7 @@ echo
 
 for item in ${array[*]}
 do
-	echo "time python gpu_py/runtok.py $item 3 >> logfile.txt"
+	echo "time python py/runtok.py $item 3 >> logfile.txt"
 	time python gpu_py/runtok.py $item 3 >> logfile.txt
 done
 echo
@@ -23,7 +23,7 @@ echo
 
 for item in ${array[*]}
 do
-	echo "time ./gpu_cpp/tok $item 1 >> logfile.txt"
+	echo "time ./cpp/tok $item 1 >> logfile.txt"
 	time ./gpu_cpp/tok $item 1 >> logfile.txt
 done
 echo
@@ -33,7 +33,7 @@ echo
 
 for item in ${array[*]}
 do
-	echo "time python gpu_py/runtok.py $item 1 >> logfile.txt"
+	echo "time python py/runtok.py $item 1 >> logfile.txt"
 	time python gpu_py/runtok.py $item 1 >> logfile.txt
 done
 echo
@@ -43,7 +43,7 @@ echo
 
 for item in ${array[*]}
 do
-	echo "time ./gpu_cpp/tok $item 2 >> logfile.txt"
+	echo "time ./cpp/tok $item 2 >> logfile.txt"
 	time ./gpu_cpp/tok $item 2 >> logfile.txt
 done
 echo
@@ -53,7 +53,7 @@ echo
 
 for item in ${array[*]}
 do
-	echo "time python gpu_py/runtok.py $item 2 >> logfile.txt"
+	echo "time python py/runtok.py $item 2 >> logfile.txt"
 	time python gpu_py/runtok.py $item 2 >> logfile.txt
 done
 echo
