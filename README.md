@@ -73,16 +73,17 @@ dataset 2: http://cmpt732.csil.sfu.ca/datasets/a1-pagecounts-2.zip
 Assuming Cuda and Pycuda are installed. 
 
 1) running C++:
-  * cd /path_to_cpp/cpp
+  * cd /path_to/src_cpp
   * make
   * ./tok path_to_data
    
 2) running Python:
-  * cd /path_to_cpp/cpp
+  * cd /path_to/src_py
   * python runtok.py path_to_data
 
 3) running test.sh:
-  * Adjust the data paths in test.sh and then 
+  * Adjust the data paths in test.sh and then
+  * chmod 755 test.sh
   * ./test.sh
 
 3) running Compare2PTB:
