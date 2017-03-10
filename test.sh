@@ -7,6 +7,7 @@ array=(${path}gutenberg/5000-8.txt ${path}100mb/pagecounts-20141201-070000 ${pat
 NUM=6
 
 NUM=`expr $NUM - 1`
+echo "" > logfile.txt
 #------------nltk-------------------------------------------------
 echo ".....nltk....." >> logfile.txt
 echo
