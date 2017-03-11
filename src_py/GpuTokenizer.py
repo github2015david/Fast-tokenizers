@@ -18,7 +18,7 @@ import sys
 
 verbose = 2
 
-PATCHING = '\1'		#define in device
+PADDING = '\1'		#define in device
 ENDING = '\0'
 DOUBLE1 = '\2'		#define in device, for open '"'
 DOUBLE2 = '\3'		#define in device, for close '"'
@@ -26,17 +26,17 @@ DOUBLE2 = '\3'		#define in device, for close '"'
 HALF_WINDOW = 7		#define in device
 FULL_WINDOW =  14	#define in device
 
-#patching-kernel
+#padding-kernel
 BLOCK_DIM_1D = 128
 GRID_DIM_1D = 4096
 GLOBAL_REPEAT = 30
 
 #gpu kernel wrapped cuda code
-def patchingModule():
+def paddingModule():
 	mod = SourceModule("""
 	#include <stdio.h>
 
-	__device__ char PATCHING = '\\1';
+	__device__ char PADDING = '\\1';
 
 	__device__ char DOUBLE1 = '\\2';
 
@@ -116,10 +116,10 @@ def patchingModule():
 		if (c_lower == '`') {
 			if (window[i-1] != '`' && window[i+1] == '`') {
 				*l = ' ';
-				*r = PATCHING;
+				*r = PADDING;
 			}
 			else if (window[i-1] == '`' && window[i+1] != '`') {
-				*l = PATCHING;
+				*l = PADDING;
 				*r = ' ';
 			}
 		}
@@ -155,20 +155,20 @@ def patchingModule():
 		else if ( inAt(not_changed_lst, 11, *c)) {  //boundary and not delimiter		 
 			if (*c == '.' && window[i+1] == '.' && window[i+2] == '.' && window[i-1] != '.') {// every "..."
 				*l = ' ';
-				*r = PATCHING;
+				*r = PADDING;
 			}
 			else if (*c == '.' && window[i-1] == '.' && window[i-2] == '.' && window[i-3] != '.') {
-				*l = PATCHING;
+				*l = PADDING;
 				*r = ' ';	
 			}
 			else if (*c == '.' && window[i-1] == '.' && window[i-2] == '.' && window[i-3] == '.'
 				&& window[i-4] == '.' && window[i-5] == '.' && window[i-6] != '.') {
-				*l = PATCHING;
+				*l = PADDING;
 				*r = ' ';	
 			}
 			else if (*c == '.' && window[i+1] == '\\0') {
 				*l = ' ';
-				*r = PATCHING;
+				*r = PADDING;
 			}
 			else if ((window[i+1] == 'c' && window[i+2] == 'a' && window[i+3] == 'n' && window[i+4] == 'n' && window[i+5] == 'o' && window[i+6] == 't')
 				|| (window[i+1] == 'd' && window[i+2] == QM && window[i+3] == 'y' && window[i+4] == 'e' && inAt(b_lst, 11, window[i+5]))
@@ -178,7 +178,7 @@ def patchingModule():
 				|| (window[i+1] == 'l' && window[i+2] == 'e' && window[i+3] == 'm' && window[i+4] == 'm' && window[i+5] == 'e' && inAt(b_lst, 11, window[i+6]))
 				|| (window[i+1] == 'm' && window[i+2] == 'o' && window[i+3] == 'r' && window[i+4] == QM && window[i+5] == 'n' && inAt(b_lst, 11, window[i+6]))
 				|| (window[i+1] == 'w' && window[i+2] == 'a' && window[i+3] == 'n' && window[i+4] == 'n' && window[i+5] == 'a' && inAt(b_lst, 11, window[i+6])))  {
-				*l = PATCHING;
+				*l = PADDING;
 				*r = ' ';
 			}
 			else if ((window[i-6] == 'c' && window[i-5] == 'a' && window[i-4] == 'n' && window[i-3] == 'n' && window[i-2] == 'o' && window[i-1] == 't')
@@ -192,43 +192,43 @@ def patchingModule():
 				|| (inAt(b_lst, 11, window[i-5]) && window[i-4] == QM && window[i-3] == 't' && window[i-2] == 'i' && window[i-1] == 's')
 				|| (inAt(b_lst, 11, window[i-6]) && window[i-5] == QM && window[i-4] == 't' && window[i-3] == 'w' && window[i-2] == 'a' && window[i-1] == 's')) {
 				*l = ' ';
-				*r = PATCHING;
+				*r = PADDING;
 			}
 
 			else if (*c == '-') { //(*c != '*')  every "--"
 				if (window[i-1] != '-' && window[i+1] == '-') {
 					*l = ' ';
-					*r = PATCHING;
+					*r = PADDING;
 				}
 				else if (window[i-2] != '-' && window[i-1] == '-') {
-					*l = PATCHING;
+					*l = PADDING;
 					*r = ' ';
 				}
 				else if (window[i-4] != '-' && window[i-3] == '-'
 					&& window[i-2] == '-' && window[i-1] == '-') {
-					*l = PATCHING;
+					*l = PADDING;
 					*r = ' ';
 				}
 				else if (window[i-6] != '-' && window[i-5] == '-'
 					&& window[i-4] == '-' && window[i-3] == '-'
 					&& window[i-2] == '-' && window[i-1] == '-') {
-					*l = PATCHING;
+					*l = PADDING;
 					*r = ' ';
 				}
 			}
 
 			else {
-				*l = PATCHING;
-				*r = PATCHING;
+				*l = PADDING;
+				*r = PADDING;
 			}
 		}
 		else if (*c == QM) {
 			if (window[i-1]!= QM && window[i+1] == QM) {
 				*l = ' ';
-				*r = PATCHING;
+				*r = PADDING;
 			}
 			else if (window[i-1] == QM) {
-				*l = PATCHING;
+				*l = PADDING;
 				*r = ' ';
 			}
 			else if ( window[i+1] == '"' || (window[i+1] == '-' && window[i+2] == '-') || (window[i+1] == '.' && window[i+2] == '.' && window[i+3] == '.')) {
@@ -239,51 +239,51 @@ def patchingModule():
 				if ( inAt("DMSdms", 6, window[i+1])) {
 					if (isBackChanged(window, i+2)) {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i+1] == 'l' && window[i+2] == 'l') {
 					if (isBackChanged(window, i+3))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i+1] == 'L' && window[i+2] == 'L') {
 					if (isBackChanged(window, i+3))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i+1] == 'r' && window[i+2] == 'e') {
 					if (isBackChanged(window, i+3))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i+1] == 'R' && window[i+2] == 'E' && isBackChanged(window, i+3) )  {
 					*l = ' ';
-					*r = PATCHING;
+					*r = PADDING;
 				}
 				else if ( window[i+1] == 'v' && window[i+2] == 'e' && isBackChanged(window, i+3) )  {
 					*l = ' ';
-					*r = PATCHING;
+					*r = PADDING;
 				}
 				else if ( window[i+1] == 'V' && window[i+2] == 'E') {
 					if (isBackChanged(window, i+3))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( inAt(b_lst, 36, window[i-2]) && (window[i-1] == 'd' || window[i-1] == 'D')
 					&& window[i+1] == 'y' && window[i+2] == 'e' && inAt(b_lst, 36, window[i+3]))  {
 					*l = ' ';
-					*r = PATCHING;
+					*r = PADDING;
 				}
 				else if ( inAt(b_lst, 36, window[i-4]) && window[i-3] == 'm' 
 					&& window[i-2] == 'o' && window[i-1] == 'r' && window[i+1] == 'n') { 
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-1] != QM) {
@@ -298,19 +298,19 @@ def patchingModule():
 			if (isFrontChanged(window, i-2) && window[i-1] == QM && c_lower == 't')  {  //constrations3
 				if (( window[i+1] == 'i' && window[i+2] == 's' && inAt(b_lst, 36, window[i+3])) 
 					|| ( window[i+1] == 'w' && window[i+2] == 'a' && window[i+3] == 's' && inAt(b_lst, 36, window[i+4])) )  {
-					*l = PATCHING;
+					*l = PADDING;
 					*r = ' ';
 				}
 			}
 			else if ( window[i-1] != QM && c_lower == 'n' && window[i+1] == QM && window[i+2] == 't') { // || window[i+2] == 'T')) {
 				if (isBackChanged(window, i+3))  {
 					*l = ' ';
-					*r = PATCHING;
+					*r = PADDING;
 				}
 			}
 			else if ( window[i-2] == 'n' && c_lower == 't') {  //|| window[i-2] == 'N') && window[i-1] == QM && c_lower == 't') { 
 				if (isBackChanged(window, i+1))  {
-					*l = PATCHING;
+					*l = PADDING;
 					*r = ' ';
 				}
 			}
@@ -319,49 +319,49 @@ def patchingModule():
 					&& c_lower == 'n' && window[i+1] == 'o' && window[i+2] == 't') { 
 					if (inAt(b_lst, 36, window[i+3]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				} 
 				if ( window[i-3] == 'g' && window[i-2] == 'i' && window[i-1] == 'm'
 					&& c_lower == 'm' && window[i+1] == 'e') {
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-3] == 'g' && window[i-2] == 'o' && window[i-1] == 'n'
 					&& c_lower == 'n' && window[i+1] == 'a') {
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-3] == 'g' && window[i-2] == 'o' && window[i-1] == 't'
 					&& c_lower == 't' && window[i+1] == 'a') {
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-3] == 'l' && window[i-2] == 'e' && window[i-1] == 'm'
 					&& c_lower == 'm' && window[i+1] == 'e') {
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-3] == 'l' && window[i-2] == 'e' && window[i-1] == 'm'
 					&& c_lower == 'm' && window[i+1] == 'e') {
 					if (inAt(b_lst, 36, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 				else if ( window[i-3] == 'w' && window[i-2] == 'a' && window[i-1] == 'n'
 					&& c_lower == 'n' && window[i+1] == 'a') {
 					if (inAt(changed_lst, 19, window[i+2]))  {
 						*l = ' ';
-						*r = PATCHING;
+						*r = PADDING;
 					}
 				}
 			}
@@ -369,7 +369,7 @@ def patchingModule():
 		return;
 	}
 
-	__global__ void patch_kernel( char *buffer, char *patched, int *para)
+	__global__ void pad_kernel( char *buffer, char *padded, int *para)
 	{
 		int repeat = para[1];
 		int n = para[0];
@@ -385,24 +385,24 @@ def patchingModule():
 				j = i*3;	
 
 				c = buffer[i];
-				patched[j] = PATCHING;
-				patched[j+1] = c;
-				patched[j+2] = PATCHING;
+				padded[j] = PADDING;
+				padded[j+1] = c;
+				padded[j+2] = PADDING;
 				memcpy(window, buffer + i - HALF_WINDOW, 2*HALF_WINDOW);
 				if (!inAt(wspace_lst, 6, c)) 
 				{
-					l = PATCHING;
-					r = PATCHING;
+					l = PADDING;
+					r = PADDING;
 					for (int i = 0; i < FULL_WINDOW; i++)
 						window[i] = tolower(window[i]);
 
 					rules_kernel(&c, &l, &r, window);
-					patched[j] = l;
-					patched[j+1] = c;
-					patched[j+2] = r;			
+					padded[j] = l;
+					padded[j+1] = c;
+					padded[j+2] = r;			
 				}
 				else {
-					patched[j+1] = ' ';
+					padded[j+1] = ' ';
 				}				
 			}
 		}//end for
@@ -410,7 +410,7 @@ def patchingModule():
 	}
 	""")
 
-	return mod.get_function("patch_kernel")
+	return mod.get_function("pad_kernel")
 
 
 #gpu tokenizer
@@ -418,14 +418,14 @@ def gpuTokenize(buff):
 	t1 = time.time()
 
 	#loading data
-	a_npa = np.array([PATCHING*HALF_WINDOW + buff + PATCHING*HALF_WINDOW], dtype=np.str)
+	a_npa = np.array([PADDING*HALF_WINDOW + buff + PADDING*HALF_WINDOW], dtype=np.str)
 	buffer_npa = a_npa.view('S1').reshape(-1, 1)
 
 	buffer_npa[HALF_WINDOW-1] = ' '
 	buffer_npa[-HALF_WINDOW] = ENDING
 	n_bytes = buffer_npa.size
 
-	#patching-kernel
+	#padding-kernel
 	block_x = BLOCK_DIM_1D
 	grid_x = GRID_DIM_1D
 
@@ -436,7 +436,7 @@ def gpuTokenize(buff):
 		repeat = int(math.ceil(float(n_bytes) /grid_x/block_x))
 
 	if verbose > 1:
-		print("patching-kernel   - grid_x:%d, block_x:%d, repeat:%d, n:%d"%\
+		print("padding-kernel   - grid_x:%d, block_x:%d, repeat:%d, n:%d"%\
 			(grid_x, block_x, repeat, n_bytes))
 
 	para_npa = np.array([n_bytes,repeat], dtype=np.int32)
@@ -445,26 +445,26 @@ def gpuTokenize(buff):
 	if verbose:
 		print "1load data time   - %f"%(time.time()-t1) ; t1 = time.time()
 
-	module = patchingModule()
+	module = paddingModule()
 	module(drv.In(buffer_npa), drv.Out(out_npa), drv.In(para_npa), grid=(grid_x,1), block=(block_x,1,1) )
 
 	if verbose:
-		print "2patching time    - %f"%(time.time()-t1) ; t1 = time.time()
+		print "2padding time    - %f"%(time.time()-t1) ; t1 = time.time()
 
-	patched = out_npa.reshape(-1,out_npa.size)
-	patched = patched.view('S'+str(patched.size))[0][0]
+	padded = out_npa.reshape(-1,out_npa.size)
+	padded = padded.view('S'+str(padded.size))[0][0]
 
 	if verbose:
 		print "3reshap time      - %f"%(time.time()-t1) ; t1 = time.time()
 
-#	patched = patched.replace(PATCHING,'').replace(DOUBLE1,'` ').replace(DOUBLE2,"' ").replace(ENDING,'')
-	patched = patched.translate(None, PATCHING + ENDING)
-	patched = patched.replace(DOUBLE1,'` ').replace(DOUBLE2,"' ").replace("..."," ... ").replace("--"," -- ")
+#	padded = padded.replace(PADDING,'').replace(DOUBLE1,'` ').replace(DOUBLE2,"' ").replace(ENDING,'')
+	padded = padded.translate(None, PADDING + ENDING)
+	padded = padded.replace(DOUBLE1,'` ').replace(DOUBLE2,"' ").replace("..."," ... ").replace("--"," -- ")
 
 	if verbose:
 		print "4replace time     - %f"%(time.time()-t1) ; t1 = time.time()
 
-	tokens = patched.split()
+	tokens = padded.split()
 
 	if verbose:
 		print "5splitting time   - %f"%(time.time()-t1) ; t1 = time.time()
@@ -506,4 +506,3 @@ if __name__ == "__main__":
 #	print oneScanTokenizer(s)
 	print gpuTokenize(s)
 	#['hi', ',', 'my', 'name', 'ca', "n't", 'hello', ',']
-
