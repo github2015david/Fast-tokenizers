@@ -13,7 +13,7 @@
 #include "CpuTokenize.h"
 #include "Tok.h"
 
-char patching='\1';
+char padding='\1';
 
 char d1='\2';
 
@@ -95,10 +95,10 @@ void rules(char *c, char *l, char *r, char *window)
 	if (c_lower == '`') {
 		if (window[i-1] != '`' && window[i+1] == '`') {
 			*l = ' ';
-			*r = patching;
+			*r = padding;
 		}
 		else if (window[i-1] == '`' && window[i+1] != '`') {
-			*l = patching;
+			*l = padding;
 			*r = ' ';
 		}
 	}
@@ -134,20 +134,20 @@ void rules(char *c, char *l, char *r, char *window)
 	else if ( inAt(not_changed_lst, 11, *c)) {  //boundary and not delimiter		 
 		if (*c == '.' && window[i+1] == '.' && window[i+2] == '.' && window[i-1] != '.') {// every "..."
 			*l = ' ';
-			*r = patching;
+			*r = padding;
 		}
 		else if (*c == '.' && window[i-1] == '.' && window[i-2] == '.' && window[i-3] != '.') {
-			*l = patching;
+			*l = padding;
 			*r = ' ';	
 		}
 		else if (*c == '.' && window[i-1] == '.' && window[i-2] == '.' && window[i-3] == '.'
 			&& window[i-4] == '.' && window[i-5] == '.' && window[i-6] != '.') {
-			*l = patching;
+			*l = padding;
 			*r = ' ';	
 		}
 		else if (*c == '.' && window[i+1] == '\0') {
 			*l = ' ';
-			*r = patching;
+			*r = padding;
 		}
 		else if ((window[i+1] == 'c' && window[i+2] == 'a' && window[i+3] == 'n' && window[i+4] == 'n' && window[i+5] == 'o' && window[i+6] == 't')
 			|| (window[i+1] == 'd' && window[i+2] == QM && window[i+3] == 'y' && window[i+4] == 'e' && inAt(b_lst, 11, window[i+5]))
@@ -157,7 +157,7 @@ void rules(char *c, char *l, char *r, char *window)
 			|| (window[i+1] == 'l' && window[i+2] == 'e' && window[i+3] == 'm' && window[i+4] == 'm' && window[i+5] == 'e' && inAt(b_lst, 11, window[i+6]))
 			|| (window[i+1] == 'm' && window[i+2] == 'o' && window[i+3] == 'r' && window[i+4] == QM && window[i+5] == 'n' && inAt(b_lst, 11, window[i+6]))
 			|| (window[i+1] == 'w' && window[i+2] == 'a' && window[i+3] == 'n' && window[i+4] == 'n' && window[i+5] == 'a' && inAt(b_lst, 11, window[i+6])))  {
-			*l = patching;
+			*l = padding;
 			*r = ' ';
 		}
 		else if ((window[i-6] == 'c' && window[i-5] == 'a' && window[i-4] == 'n' && window[i-3] == 'n' && window[i-2] == 'o' && window[i-1] == 't')
@@ -171,43 +171,43 @@ void rules(char *c, char *l, char *r, char *window)
 			|| (inAt(b_lst, 11, window[i-5]) && window[i-4] == QM && window[i-3] == 't' && window[i-2] == 'i' && window[i-1] == 's')
 			|| (inAt(b_lst, 11, window[i-6]) && window[i-5] == QM && window[i-4] == 't' && window[i-3] == 'w' && window[i-2] == 'a' && window[i-1] == 's')) {
 			*l = ' ';
-			*r = patching;
+			*r = padding;
 		}
 
 		else if (*c == '-') { //(*c != '*')  every "--"
 			if (window[i-1] != '-' && window[i+1] == '-') {
 				*l = ' ';
-				*r = patching;
+				*r = padding;
 			}
 			else if (window[i-2] != '-' && window[i-1] == '-') {
-				*l = patching;
+				*l = padding;
 				*r = ' ';
 			}
 			else if (window[i-4] != '-' && window[i-3] == '-'
 				&& window[i-2] == '-' && window[i-1] == '-') {
-				*l = patching;
+				*l = padding;
 				*r = ' ';
 			}
 			else if (window[i-6] != '-' && window[i-5] == '-'
 				&& window[i-4] == '-' && window[i-3] == '-'
 				&& window[i-2] == '-' && window[i-1] == '-') {
-				*l = patching;
+				*l = padding;
 				*r = ' ';
 			}
 		}
 
 		else {
-			*l = patching;
-			*r = patching;
+			*l = padding;
+			*r = padding;
 		}
 	}
 	else if (*c == QM) {
 		if (window[i-1]!= QM && window[i+1] == QM) {
 			*l = ' ';
-			*r = patching;
+			*r = padding;
 		}
 		else if (window[i-1] == QM) {
-			*l = patching;
+			*l = padding;
 			*r = ' ';
 		}
 		else if ( window[i+1] == '"' || (window[i+1] == '-' && window[i+2] == '-') || (window[i+1] == '.' && window[i+2] == '.' && window[i+3] == '.')) {
@@ -218,51 +218,51 @@ void rules(char *c, char *l, char *r, char *window)
 			if ( inAt("DMSdms", 6, window[i+1])) {
 				if (isBackChanged_cpu(window, i+2)) {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i+1] == 'l' && window[i+2] == 'l') {
 				if (isBackChanged_cpu(window, i+3))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i+1] == 'L' && window[i+2] == 'L') {
 				if (isBackChanged_cpu(window, i+3))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i+1] == 'r' && window[i+2] == 'e') {
 				if (isBackChanged_cpu(window, i+3))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i+1] == 'R' && window[i+2] == 'E' && isBackChanged_cpu(window, i+3) )  {
 				*l = ' ';
-				*r = patching;
+				*r = padding;
 			}
 			else if ( window[i+1] == 'v' && window[i+2] == 'e' && isBackChanged_cpu(window, i+3) )  {
 				*l = ' ';
-				*r = patching;
+				*r = padding;
 			}
 			else if ( window[i+1] == 'V' && window[i+2] == 'E') {
 				if (isBackChanged_cpu(window, i+3))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( inAt(b_lst, 36, window[i-2]) && (window[i-1] == 'd' || window[i-1] == 'D')
 				&& window[i+1] == 'y' && window[i+2] == 'e' && inAt(b_lst, 36, window[i+3]))  {
 				*l = ' ';
-				*r = patching;
+				*r = padding;
 			}
 			else if ( inAt(b_lst, 36, window[i-4]) && window[i-3] == 'm' 
 				&& window[i-2] == 'o' && window[i-1] == 'r' && window[i+1] == 'n') { 
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-1] != QM) {
@@ -277,19 +277,19 @@ void rules(char *c, char *l, char *r, char *window)
 		if (isFrontChanged_cpu(window, i-2) && window[i-1] == QM && c_lower == 't')  {  //constrations3
 			if (( window[i+1] == 'i' && window[i+2] == 's' && inAt(b_lst, 36, window[i+3])) 
 				|| ( window[i+1] == 'w' && window[i+2] == 'a' && window[i+3] == 's' && inAt(b_lst, 36, window[i+4])) )  {
-				*l = patching;
+				*l = padding;
 				*r = ' ';
 			}
 		}
 		else if ( window[i-1] != QM && c_lower == 'n' && window[i+1] == QM && window[i+2] == 't') { // || window[i+2] == 'T')) {
 			if (isBackChanged_cpu(window, i+3))  {
 				*l = ' ';
-				*r = patching;
+				*r = padding;
 			}
 		}
 		else if ( window[i-2] == 'n' && c_lower == 't') {  //|| window[i-2] == 'N') && window[i-1] == QM && c_lower == 't') { 
 			if (isBackChanged_cpu(window, i+1))  {
-				*l = patching;
+				*l = padding;
 				*r = ' ';
 			}
 		}
@@ -298,49 +298,49 @@ void rules(char *c, char *l, char *r, char *window)
 				&& c_lower == 'n' && window[i+1] == 'o' && window[i+2] == 't') { 
 				if (inAt(b_lst, 36, window[i+3]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			} 
 			if ( window[i-3] == 'g' && window[i-2] == 'i' && window[i-1] == 'm'
 				&& c_lower == 'm' && window[i+1] == 'e') {
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-3] == 'g' && window[i-2] == 'o' && window[i-1] == 'n'
 				&& c_lower == 'n' && window[i+1] == 'a') {
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-3] == 'g' && window[i-2] == 'o' && window[i-1] == 't'
 				&& c_lower == 't' && window[i+1] == 'a') {
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-3] == 'l' && window[i-2] == 'e' && window[i-1] == 'm'
 				&& c_lower == 'm' && window[i+1] == 'e') {
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-3] == 'l' && window[i-2] == 'e' && window[i-1] == 'm'
 				&& c_lower == 'm' && window[i+1] == 'e') {
 				if (inAt(b_lst, 36, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 			else if ( window[i-3] == 'w' && window[i-2] == 'a' && window[i-1] == 'n'
 				&& c_lower == 'n' && window[i+1] == 'a') {
 				if (inAt(changed_lst, 19, window[i+2]))  {
 					*l = ' ';
-					*r = patching;
+					*r = padding;
 				}
 			}
 		}
@@ -349,20 +349,20 @@ void rules(char *c, char *l, char *r, char *window)
 }//end of rules()
 
 
-//patching l and r for each char
-char* patching_cpu(char *cpu_a, int *n_bytes)
+//padding l and r for each char
+char* padding_cpu(char *cpu_a, int *n_bytes)
 {
 	int n = *n_bytes;
 	char *buffer = (char*) malloc(n + full_window);
-	memset(buffer, patching, half_window);		//done in cuda kernel
-	memset(buffer + n+ half_window, patching, half_window);
+	memset(buffer, padding, half_window);		//done in cuda kernel
+	memset(buffer + n+ half_window, padding, half_window);
 	memcpy(buffer + half_window, cpu_a, n);	
 	buffer[half_window - 1] = ' ';
 	buffer[n+half_window] = '\0';
 	n += full_window;
 
-	char *patched = (char*) malloc(3 * n);
-	memset(patched, patching, 3 * n);
+	char *padded = (char*) malloc(3 * n);
+	memset(padded, padding, 3 * n);
 
 	int i, j;
 	char window[full_window];
@@ -373,33 +373,33 @@ char* patching_cpu(char *cpu_a, int *n_bytes)
 		j = i*3;	
 
 		c = buffer[i];
-		patched[j] = patching;
-		patched[j+1] = c;
-		patched[j+2] = patching;
+		padded[j] = padding;
+		padded[j+1] = c;
+		padded[j+2] = padding;
 		memcpy(window, buffer+i-half_window, full_window);
 
 		if (!inAt(wspace_lst, strlen(wspace_lst), c)) 
 		{
-			l = patching;
-			r = patching;
+			l = padding;
+			r = padding;
 			for (int i = 0; i < full_window; i++)
 				window[i] = tolower_cpu(window[i]);
 
 			rules(&c, &l, &r, window);
-			patched[j] = l;
-			patched[j+1] = c;
-			patched[j+2] = r;			
+			padded[j] = l;
+			padded[j+1] = c;
+			padded[j+2] = r;			
 		}
 		else {
-			patched[j+1] = ' ';
+			padded[j+1] = ' ';
 		}
 	}
 	
 	free (buffer);
 	*n_bytes = n;
 
-	return patched;
-}//patching()
+	return padded;
+}//padding()
 
 
 //remove, duplicate and split
@@ -420,7 +420,7 @@ int splitAndSaveToFile_cpu(char *str, int n_bytes, char **tokens, int n_toks, ch
 
 	start = j;
 	while (i < len) {
-		if (s[i] == patching){
+		if (s[i] == padding){
 			i += 1;
 		} else if (s[i] == ' ')  {
 			w_len = j - start;
@@ -488,7 +488,7 @@ int split_cpu(char *str, int n_bytes, char **tokens, int n_toks) {
 
 	start = j;
 	while (i < len) {
-		if (s[i] == patching){
+		if (s[i] == padding){
 			i += 1;
 		} else if (s[i] == ' ')  {
 			w_len = j - start;
@@ -540,34 +540,33 @@ int cpuTokenizer(char *buffer, int n_bytes, char **tokens, int n_toks, char *out
 {
 	double start_time = now();
 
-	//1) patched (3*n_bytes) for l, c and r for each char
-	//return 'patched' with ' 's according to PTB's rules
-	char *patched = patching_cpu(buffer, &n_bytes);
+	//1) padded (3*n_bytes) for l, c and r for each char
+	//return 'padded' with ' 's according to PTB's rules
+	char *padded = padding_cpu(buffer, &n_bytes);
 
 	if (verbose > 1)
-		printf("patching(cpu) time - %f\n",now() - start_time);  start_time = now();
+		printf("padding(cpu) time - %f\n",now() - start_time);  start_time = now();
 
-	//2) remove patching and split tokens
+	//2) remove padding and split tokens
 	int n_tokens;
 	if (strlen(outfile) > 0) {
-		n_tokens = splitAndSaveToFile_cpu(patched, n_bytes, tokens, n_toks, outfile);
+		n_tokens = splitAndSaveToFile_cpu(padded, n_bytes, tokens, n_toks, outfile);
 		if (verbose > 1) {
 			printf("split time         - %f\n",now() - start_time);  start_time = now();
 			printf ("\nsave to: %s\n",outfile);
 		}
 	}
 	else {
-		n_tokens = split_cpu(patched, n_bytes, tokens, n_toks);
+		n_tokens = split_cpu(padded, n_bytes, tokens, n_toks);
 		if (verbose > 1)
 			printf("split time         - %f\n",now() - start_time);  start_time = now();
 	}
 
 
-	free (patched);
+	free (padded);
 
 	return n_tokens;
 }//end of gpu
-
 
 
 
