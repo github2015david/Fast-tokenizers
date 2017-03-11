@@ -1,9 +1,6 @@
 #!/usr/bin/python
 #
 # to use:
-#import sys
-#sys.path.append("path_to_OneScan")
-# 
 #import OneScan
 #...
 #tokens = OneScan.oneScanTokenizer(text)
