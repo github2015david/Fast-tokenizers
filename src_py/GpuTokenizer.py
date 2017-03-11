@@ -1,12 +1,9 @@
 #!/usr/bin/python
 #
 # to use:
-#import sys
-#sys.path.append("path_to_Onescan")
-# 
 #import GpuTokenizer
 #...
-#tokens = Onescan.oneScanTokenizer(text)
+#tokens = GpuTokenizer.gpuTokenize(text)
 #...
 
 import pycuda.driver as drv
