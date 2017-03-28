@@ -48,7 +48,7 @@ All results from above Python applications are matched to the result from nltk's
 ### 4. Results
 Comparing to the nltk's TreebankWordTokenizer, the CPU versions are about 2x speedup while the GPU versions are 25x to 28x as shown below:
 
-![alt text][figure_1.png]
+![alt text](figure_1.png)
 
 As one can see, the speedup is increasing while the size of dataset getting larger until it reaches the limit of the GPU memory.
 
