@@ -73,9 +73,9 @@ dataset 2: http://cmpt732.csil.sfu.ca/datasets/a1-pagecounts-2.zip
 Assuming Cuda and Pycuda are installed. 
 
 1) running C++:
-  * cd /path_to/src_cpp
-  * make
-  * ./tok path_to_data
+  cd /path_to/src_cpp
+  make
+  ./tok path_to_data
    
 2) running Python:
   * cd /path_to/src_py
