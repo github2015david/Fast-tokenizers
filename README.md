@@ -5,7 +5,7 @@ Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with 
 
 ### 1. Application Overview
 GpuTokenize.py
-  * Python and Pycuda application
+  * Python and Pycuda applications
   * uses Pycuda to split a stream of text into tokens.
 
 Onescan.py
