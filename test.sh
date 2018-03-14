@@ -1,6 +1,6 @@
 #!/bin/bash
 #./test.sh
-#make a change in main master
+
 path=/home/lca80/Desktop/data/
 array=(${path}gutenberg/5000-8.txt ${path}100mb/pagecounts-20141201-070000 ${path}100mb ${path}300mb ${path}499mb ${path}a1-pagecounts-2)
 
