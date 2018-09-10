@@ -3,6 +3,7 @@ Fast and rule-based tokenizers are implemented in C++ with Cuda and Python with 
 
 <br> 
 
+
 ### 1. Application Overview
 GpuTokenize.py
   * Python and Pycuda application
